@@ -54,20 +54,22 @@ func (q *ExtendedQueryParams) Params() map[string]string {
 
 // BasicQueryParams basic filter queries
 type BasicQueryParams struct {
-	Status        string
-	SortField     string
-	SortDirection string
-	Fields        []string
-	ExcludeFields []string
+	Status              string
+	SortField           string
+	SortDirection       string
+	Fields              []string
+	ExcludeFields       []string
+	SkipMergeValidation bool
 }
 
 func (q *BasicQueryParams) Params() map[string]string {
 	return map[string]string{
-		"status":         q.Status,
-		"sort_field":     q.SortField,
-		"sort_dir":       q.SortDirection,
-		"fields":         strings.Join(q.Fields, ","),
-		"exclude_fields": strings.Join(q.ExcludeFields, ","),
+		"status":                q.Status,
+		"sort_field":            q.SortField,
+		"sort_dir":              q.SortDirection,
+		"fields":                strings.Join(q.Fields, ","),
+		"exclude_fields":        strings.Join(q.ExcludeFields, ","),
+		"skip_merge_validation": fmt.Sprintf("%t", q.SkipMergeValidation),
 	}
 }
 
@@ -80,7 +82,7 @@ type baseList struct {
 	Links      []Link `json:"_links"`
 }
 
-// Link refereneces another object
+// Link references another object
 type Link struct {
 	Rel          string `json:"re"`
 	Href         string `json:"href"`
