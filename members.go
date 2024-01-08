@@ -180,7 +180,7 @@ func (list *ListResponse) GetMember(id string, params *BasicQueryParams) (*Membe
 	return response, list.api.Request("GET", endpoint, params, nil, response)
 }
 
-func (list *ListResponse) CreateMember(body *MemberRequest) (*Member, error) {
+func (list *ListResponse) CreateMember(params *BasicQueryParams, body *MemberRequest) (*Member, error) {
 	if err := list.CanMakeRequest(); err != nil {
 		return nil, err
 	}
@@ -189,10 +189,10 @@ func (list *ListResponse) CreateMember(body *MemberRequest) (*Member, error) {
 	response := new(Member)
 	response.api = list.api
 
-	return response, list.api.Request("POST", endpoint, nil, body, response)
+	return response, list.api.Request("POST", endpoint, params, body, response)
 }
 
-func (list *ListResponse) UpdateMember(id string, body *MemberRequest) (*Member, error) {
+func (list *ListResponse) UpdateMember(id string, params *BasicQueryParams, body *MemberRequest) (*Member, error) {
 	if err := list.CanMakeRequest(); err != nil {
 		return nil, err
 	}
@@ -201,7 +201,7 @@ func (list *ListResponse) UpdateMember(id string, body *MemberRequest) (*Member,
 	response := new(Member)
 	response.api = list.api
 
-	return response, list.api.Request("PATCH", endpoint, nil, body, response)
+	return response, list.api.Request("PATCH", endpoint, params, body, response)
 }
 
 func (list *ListResponse) AddOrUpdateMember(id string, params *BasicQueryParams, body *MemberRequest) (*Member, error) {
